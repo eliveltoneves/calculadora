@@ -1,7 +1,7 @@
 import 'package:calculadora/widgets/button_hub.dart';
 import 'package:flutter/material.dart';
-import 'package:math_expressions/math_expressions.dart';
 import 'package:intl/intl.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class CalcController extends ChangeNotifier {
   var display = "0";
@@ -14,29 +14,64 @@ class CalcController extends ChangeNotifier {
     }
 
     if (click is CommonButtonClick) {
-      display += click.value;
+      handleCommonButtonClick(click);
     } else if (click is ClearButtonClick) {
-      display = '0';
+      clearDisplay();
     } else if (click is ClearEntryButtonClick) {
-      display = '0';
+      clearEntry();
     } else if (click is EqualsButtonClick) {
-      try {
-        final expression = expressionParser.parse(display);
-        final result = expression.evaluate(EvaluationType.REAL, contextModel);
-        display = formatResult(result);
-      } catch (e) {
-        display = 'Error';
-      }
+      evaluateExpression();
     }
     notifyListeners();
   }
 
+  void handleCommonButtonClick(CommonButtonClick click) {
+    if (click.value == '.') {
+      handleDecimalInput();
+    } else {
+      display += click.value;
+    }
+  }
+
+  void handleDecimalInput() {
+  if (display.isEmpty || display.endsWith('+') || display.endsWith('-') || display.endsWith('*') || display.endsWith('/')) {
+    // Adiciona 0 à esquerda do ponto se o ponto for o primeiro caractere da expressão
+    display += '0.';
+  } else if (!display.contains('.')) {
+    // Adiciona ponto apenas se não houver ponto na expressão
+    display += '.';
+  }
+}
+
+
+
+  void clearEntry() {
+    if (display.isNotEmpty) {
+      display = display.substring(0, display.length - 1);
+      if (display.isEmpty) {
+        display = '0';
+      }
+    }
+  }
+
+  void clearDisplay() {
+    display = '0';
+  }
+
+  void evaluateExpression() {
+    try {
+      final expression = expressionParser.parse(display);
+      final result = expression.evaluate(EvaluationType.REAL, contextModel);
+      display = formatResult(result);
+    } catch (e) {
+      display = 'Error';
+    }
+  }
+
   String formatResult(double result) {
     if (result % 1 == 0) {
-      // Se o resultado for um número inteiro, não exibe as casas decimais
       return result.toInt().toString();
     } else {
-      // Caso contrário, exibe as casas decimais normalmente
       final formattedResult = NumberFormat.decimalPattern().format(result);
       return formattedResult;
     }
