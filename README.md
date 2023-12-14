@@ -42,9 +42,9 @@ O projeto está estruturado em várias classes e widgets. Aqui estão as princip
 
 ## Demonstração
 
-![Calculadora](assets\image\Calculadora.png)
+![Calculadora]("https://dribbble.com/shots/22801700-Calculator-UI")
 
-Designer de Kevin Lozano
+Designer de Kelvin Lozano
 
 ---
 
