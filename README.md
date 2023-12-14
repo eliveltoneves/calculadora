@@ -45,7 +45,3 @@ O projeto está estruturado em várias classes e widgets. Aqui estão as princip
 ![Calculadora](https://github.com/eliveltoneves/calculadora/assets/93766747/63362bf2-b395-4b21-8b27-f89aa98307ce)
 
 Designer de Kelvin Lozano
-
----
-
-Sinta-se à vontade para substituir `url_da_sua_imagem.jpg` com a URL da imagem da sua calculadora. Isso permitirá que você exiba uma captura de tela ou imagem do seu aplicativo na seção de demonstração.
