@@ -42,7 +42,7 @@ O projeto está estruturado em várias classes e widgets. Aqui estão as princip
 
 ## Demonstração
 
-![Calculadora]("https://dribbble.com/shots/22801700-Calculator-UI")
+![Calculadora](https://github.com/eliveltoneves/calculadora/assets/93766747/63362bf2-b395-4b21-8b27-f89aa98307ce)
 
 Designer de Kelvin Lozano
 
