@@ -11,15 +11,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      themeMode: ThemeMode.light,
-      darkTheme: ThemeData.dark(
-        useMaterial3: true,
-      ),
-      theme: ThemeData.light(
-        useMaterial3: true
-      ),
-      home: const CalcPage(),
+    return const MaterialApp(        
+      home: CalcPage(),
     );
   }
 }

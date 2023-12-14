@@ -1,3 +1,4 @@
+import 'package:calculadora/widgets/common/app_colors.dart';
 import 'package:flutter/material.dart';
 
 sealed class ButtonClick {
@@ -29,123 +30,101 @@ class ButtonHub extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      primary: false,
-      padding: const EdgeInsets.all(20),
-      crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
-      crossAxisCount: 4,
-      children: <Widget>[
-        Button(
-          value: 'C',
-          color: Theme.of(context).colorScheme.onPrimary,
-          onTap: (value) => onButtonClick!(ClearButtonClick(value)),
-        ),
-        Button(
-          value: 'CE',
-          color: Theme.of(context).colorScheme.onPrimary,
-          onTap: (value) => onButtonClick!(ClearEntryButtonClick(value)),
-        ),
-        Button(
-          value: '%',
-          color: Theme.of(context).colorScheme.onPrimary,
-          onTap: (value) => onButtonClick!(CommonButtonClick(value)),
-        ),
-        Button(value: '', color: Theme.of(context).colorScheme.primary),
-        Button(
-          value: '7',
-          onTap: (value) => onButtonClick!(CommonButtonClick(value)),
-        ),
-        Button(
-          value: '8',
-          onTap: (value) => onButtonClick!(CommonButtonClick(value)),
-        ),
-        Button(
-          value: '9',
-          onTap: (value) => onButtonClick!(CommonButtonClick(value)),
-        ),
-        Button(
-          value: '/',
-          color: Theme.of(context).colorScheme.onPrimary,
-          onTap: (value) => onButtonClick!(CommonButtonClick(value)),
-        ),
-        Button(
-          value: '4',
-          onTap: (value) => onButtonClick!(CommonButtonClick(value)),
-        ),
-        Button(
-          value: '5',
-          onTap: (value) => onButtonClick!(CommonButtonClick(value)),
-        ),
-        Button(
-          value: '6',
-          onTap: (value) => onButtonClick!(CommonButtonClick(value)),
-        ),
-        Button(
-          value: '*',
-          color: Theme.of(context).colorScheme.onPrimary,
-          onTap: (value) => onButtonClick!(CommonButtonClick(value)),
-        ),
-        Button(
-          value: '1',
-          onTap: (value) => onButtonClick!(CommonButtonClick(value)),
-        ),
-        Button(
-          value: '2',
-          onTap: (value) => onButtonClick!(CommonButtonClick(value)),
-        ),
-        Button(
-          value: '3',
-          onTap: (value) => onButtonClick!(CommonButtonClick(value)),
-        ),
-        Button(
-          value: '-',
-          color: Theme.of(context).colorScheme.onPrimary,
-          onTap: (value) => onButtonClick!(CommonButtonClick(value)),
-        ),
-        Button(
-          value: '.',
-          color: Theme.of(context).colorScheme.onPrimary,
-          onTap: (value) => onButtonClick!(CommonButtonClick(value)),
-        ),
-        Button(
-          value: '0',
-          onTap: (value) => onButtonClick!(CommonButtonClick(value)),
-        ),
-        Button(
-          value: '=',
-          color: Theme.of(context).colorScheme.onTertiary,
-          onTap: (value) => onButtonClick!(EqualsButtonClick(value))
-        ),
-        Button(
-          value: '+',
-          color: Theme.of(context).colorScheme.onPrimary,
-          onTap: (value) => onButtonClick!(CommonButtonClick(value)),
-        ),
-      ],
-    );
+    return  SizedBox(
+      height: 500,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        verticalDirection: VerticalDirection.down,
+        children: [
+          ButtonColum([
+            Button(value: 'C', color: AppColors.operator, onTap: (value) => onButtonClick!(ClearButtonClick(value)),),
+            Button(value: '9', onTap: (value) => onButtonClick!(CommonButtonClick(value)),),
+            Button(value: '6', onTap: (value) => onButtonClick!(CommonButtonClick(value)),),
+            Button(value: '3', onTap: (value) => onButtonClick!(CommonButtonClick(value)),),
+            Button(value: '0', onTap: (value) => onButtonClick!(CommonButtonClick(value)),),
+          ]),
+          ButtonColum([
+            Button(value: '/', color: AppColors.operator, onTap: (value) => onButtonClick!(CommonButtonClick(value)),),
+            Button(value: '8', onTap: (value) => onButtonClick!(CommonButtonClick(value)),),
+            Button(value: '5', onTap: (value) => onButtonClick!(CommonButtonClick(value)),),
+            Button(value: '2', onTap: (value) => onButtonClick!(CommonButtonClick(value)),),
+            Button(value: '%', onTap: (value) => onButtonClick!(CommonButtonClick(value)),),
+          ]),
+          ButtonColum([
+            Button(value: '*', color: AppColors.operator, icon: Icons.clear, onTap: (value) => onButtonClick!(CommonButtonClick(value)),),
+            Button(value: '7', onTap: (value) => onButtonClick!(CommonButtonClick(value)),),
+            Button(value: '4', onTap: (value) => onButtonClick!(CommonButtonClick(value)),),
+            Button(value: '1', onTap: (value) => onButtonClick!(CommonButtonClick(value)),),
+            Button(value: '.', onTap: (value) => onButtonClick!(CommonButtonClick(value)),),
+          ]),
+          ButtonColum([
+            Button(value: 'CE', color: AppColors.operator, icon: Icons.backspace_outlined, onTap: (value) => onButtonClick!(ClearEntryButtonClick(value)),),
+            Button(value: '+',color: AppColors.operator, icon: Icons.add_outlined, onTap: (value) => onButtonClick!(CommonButtonClick(value)),),
+            Button(value: '-', color: AppColors.operator, icon: Icons.remove_outlined, onTap: (value) => onButtonClick!(CommonButtonClick(value)),),
+            Button(value: '=', big: true, color: AppColors.result, icon: Icons.drag_handle_sharp, onTap: (value) => onButtonClick!(EqualsButtonClick(value))),
+          ]),
+        ],
+      ),
+    );    
   }
 }
 
 class Button extends StatelessWidget {
   final String value;
   final Color? color;
+  final bool big;
+  final IconData? icon;
   final void Function(String value)? onTap;
-  const Button({super.key, required this.value, this.color, this.onTap});
+  const Button(
+      {super.key,
+      required this.value,
+      this.color,
+      this.onTap,
+      this.big = false,
+      this.icon});
 
   @override
   Widget build(BuildContext context) {
-    final color = this.color ?? Theme.of(context).colorScheme.primary;
-    return Material(
-      color: color,
-      child: InkWell(
-        onTap: onTap == null ? null : () => onTap!(value),
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          child: Center(
-            child: Text(value),
+    return Expanded(
+        flex: big ? 2 : 1,
+        child: ElevatedButton(
+          style: ButtonStyle(
+            elevation: const MaterialStatePropertyAll(3),
+            backgroundColor: MaterialStatePropertyAll(color ?? AppColors.keybordColor),
+            shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))
           ),
-        ),
+          onPressed: () {
+            if (onTap != null) {
+              onTap!(value);
+            }
+          },
+          child: icon != null 
+            ? Icon(
+                icon,
+                color: Colors.white,
+                size: 32,
+              )
+            : Text(value, style: const TextStyle(
+            color: Colors.white,
+            fontSize: 28
+          ),),
+          
+        )
+    );
+  }
+}
+
+class ButtonColum extends StatelessWidget {
+  final List<Button> buttons;
+
+  const ButtonColum(this.buttons, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: buttons,
       ),
     );
   }

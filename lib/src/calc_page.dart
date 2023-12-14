@@ -18,8 +18,7 @@ class _CalcPageState extends State<CalcPage> {
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
+  void initState() {    
     super.initState();
     controller.addListener(_listener);
   }
@@ -35,13 +34,8 @@ class _CalcPageState extends State<CalcPage> {
     return Material(
       child: Column(
         children: [
-          Expanded(
-            flex: 1,
-            child: Display(value: controller.display),
-          ),
-          Expanded(
-              flex: 3,
-              child: ButtonHub(onButtonClick: controller.onButtonClick))
+          Display(value: controller.display),
+          ButtonHub(onButtonClick: controller.onButtonClick)
         ],
       ),
     );
